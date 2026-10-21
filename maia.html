@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MAIA check — Ahn Research Group</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="assets/site.css?v=20261022a">
+<link rel="stylesheet" href="assets/site.css?v=20261022b">
 <style>
 .head{position:absolute;left:56px;top:68px;width:1168px}
 .head .ck{color:var(--brass);font-size:12px}
@@ -83,8 +83,8 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
   <div class="foot"><a href="index.html" data-ko="← 처음으로" data-en="← Home"></a><span>Esc</span><span class="r" data-ko="정의: MAIA v1.1 운영판 사양(초안)" data-en="Definition: MAIA v1.1 operational specification (draft)"></span></div>
 
 </div></div>
-<script src="assets/i18n.js?v=20261022a"></script>
-<script src="assets/site.js?v=20261022a"></script>
+<script src="assets/i18n.js?v=20261022b"></script>
+<script src="assets/site.js?v=20261022b"></script>
 <script>
 (function(){
 const L=window.LAB,NS='http://www.w3.org/2000/svg';
@@ -126,7 +126,7 @@ function update(){
   const COL={ai:'#7fa3c7',co:'#c9a96e',hu:'#b77a6f'};
   let verdict,why,col;
   if(fired.length){verdict=MN.hu;col=COL.hu;why=L.T('관문 작동: ','Gate fired: ')+fired.map(i=>GN[i]).join(', ')+L.T('. 관문은 어떤 점수보다 앞섭니다.','. Gates override any score.')}
-  else if(unk){verdict=L.T('보류 — 사람이 결정','Pending — a person decides');col='#94a3b8';why=L.T('관문 질문에 답이 없어 관문을 풀지 않습니다. 점수 제안: ','A gate is unanswered, so it is not released. Score suggests: ')+MN[mode]+'.'}
+  else if(unk){verdict=L.T('보류 — 사람이 결정','Pending — a person decides');col='#94a3b8';why=L.T('관문 질문에 답이 없어 관문을 풀지 않습니다. 점수 제안: ','A gate is unanswered, so it is not released. Score suggests: ')+MN[mode]+L.T('.','.','。','。')}
   else{verdict=MN[mode];col=COL[mode];why=mode==='ai'?L.T('평균 역량이 0.75 이상입니다. 결과 승인은 여전히 사람이 합니다.','Average capability is 0.75 or higher. A person still accepts the result.'):mode==='co'?L.T('AI가 초안을 만들고, 사람이 확인하고 결정합니다.','AI drafts; a person checks and decides.'):L.T('데이터·방법·암묵지에 걸리는 부분이 너무 큽니다.','Too much depends on missing data, methods or tacit skill.')}
   const vEl=document.getElementById('verdict');vEl.textContent=verdict;vEl.style.color=col;
   document.getElementById('why').textContent=why;

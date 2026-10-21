@@ -1,11 +1,20 @@
 # -*- coding: utf-8 -*-
-"""Write assets/i18n.js from tools/i18n_src.py. Fails on duplicate or empty entries."""
+"""Write assets/i18n.js from tools/i18n_src.py.
+
+Fails on duplicate or empty entries, on Japanese or Chinese text whose HTML tags
+differ from the Korean (the page inserts them with innerHTML), and on feed labels
+from build_pulse.py that have no entry.
+"""
 import json
 import os
+import re
 import sys
 
 sys.path.insert(0, os.path.dirname(__file__))
 from i18n_src import T  # noqa: E402
+import build_pulse  # noqa: E402
+
+TAG = re.compile(r'</?([a-z]+)')
 
 OUT = os.path.join(os.path.dirname(__file__), '..', 'assets', 'i18n.js')
 
@@ -19,6 +28,11 @@ def main():
         if ko in seen:
             bad.append('duplicate: %r' % ko)
         seen.add(ko)
+        for lang, text in zip(('ja', 'zh'), row[1:]):
+            if TAG.findall(text or '') != TAG.findall(ko):
+                bad.append('tags differ (%s): %r' % (lang, ko))
+    labels = [v[1] for v in list(build_pulse.PUBLIC_SCOPES.values()) + list(build_pulse.PRIVATE_SCOPES.values())] + ['개발']
+    bad += ['feed label missing: %r' % k for k in labels if k not in seen]
     if bad:
         print('\n'.join(bad))
         return 1

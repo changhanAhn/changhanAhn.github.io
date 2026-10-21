@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Research architecture — Ahn Research Group</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="assets/site.css?v=20261022a">
+<link rel="stylesheet" href="assets/site.css?v=20261022b">
 <style>
 .head{position:absolute;left:56px;top:68px;width:1168px}
 #arch{position:absolute;left:40px;top:182px;width:860px;height:478px}
@@ -57,8 +57,8 @@
   <div class="foot"><a href="index.html" data-ko="← 처음으로" data-en="← Home"></a><span>Esc</span><span class="r" data-ko="각 연구 분야는 MAIA 판단 기준으로 검증합니다. 모든 연구가 MAIA에서 나온 것은 아닙니다." data-en="Each research area is checked against the MAIA rule; not every area originates from MAIA."></span></div>
 
 </div></div>
-<script src="assets/i18n.js?v=20261022a"></script>
-<script src="assets/site.js?v=20261022a"></script>
+<script src="assets/i18n.js?v=20261022b"></script>
+<script src="assets/site.js?v=20261022b"></script>
 <script>
 (function(){
 const L=window.LAB,NS='http://www.w3.org/2000/svg',svg=document.getElementById('arch');
@@ -124,7 +124,7 @@ TR.forEach((t,i)=>{
   // footing into the core
   el('line',{x1:x+COLW/2,x2:x+COLW/2,y1:Y.trk[1],y2:Y.core[0],stroke:t.c,'stroke-opacity':.7},g);
   const n=t.leaves.length;
-  const pc=tx(x+COLW/2,Y.trk[1]-14,'산출물 '+n,n+(n>1?' outputs':' output'),'pcount',g);pc.dataset.ja='成果 '+n;pc.dataset.zh='成果 '+n;
+  const pc=tx(x+COLW/2,Y.trk[1]-14,'산출물 '+n,n+(n>1?' outputs':' output'),'pcount',g);pc.dataset.ja='成果物 '+n;pc.dataset.zh='产出 '+n;
   // output blocks above the pillar, coloured by status
   t.outs=t.leaves.map((lf,j)=>{const s=ST[lf[2]];const bh=24,yy=Y.out[1]-(j+1)*(bh+6);const r=el('g',{class:'out'},og);
     el('rect',{x,y:yy,width:COLW,height:bh,fill:'rgba(236,232,225,.02)',stroke:s[2],'stroke-opacity':.45},r);el('rect',{x,y:yy,width:3,height:bh,fill:s[2]},r);

@@ -38,9 +38,9 @@ button{font:inherit;color:inherit}
 @keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 .pill{display:inline-block;font-size:11px;font-weight:600;padding:3px 10px;border-radius:2px;white-space:nowrap;border:1px solid;letter-spacing:.3px}
 /* Japanese and Chinese: Noto Sans JP / SC are loaded by site.js only when chosen */
-html[lang="ja"]{--head:"Noto Sans JP","IBM Plex Sans KR",sans-serif}
-html[lang="zh-Hans"]{--head:"Noto Sans SC","IBM Plex Sans KR",sans-serif}
-html[lang="ja"] body{font-family:"Noto Sans JP","IBM Plex Sans KR",sans-serif}
-html[lang="zh-Hans"] body{font-family:"Noto Sans SC","IBM Plex Sans KR",sans-serif}
+html[lang="ja"]{--head:"Noto Sans JP","Hiragino Sans","Yu Gothic",sans-serif}
+html[lang="zh-Hans"]{--head:"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif}
+html[lang="ja"] body{font-family:"Noto Sans JP","Hiragino Sans","Yu Gothic",sans-serif}
+html[lang="zh-Hans"] body{font-family:"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif}
 .foot .mt{font-size:11px;color:#6b7078}
 .mt.float{position:absolute;right:56px;top:66px;font-size:11px;color:#6b7078}

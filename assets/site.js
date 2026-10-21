@@ -23,13 +23,15 @@
     tag=String(tag||'').toLowerCase();
     if(tag.startsWith('ko'))return 'ko';
     if(tag.startsWith('ja'))return 'ja';
+    // Simplified only; Traditional-Chinese browsers (zh-TW, zh-HK, zh-Hant) get English by design
     if(tag==='zh'||tag.startsWith('zh-cn')||tag.startsWith('zh-sg')||tag.startsWith('zh-hans'))return 'zh';
     if(tag.startsWith('en'))return 'en';
     return '';
   }
   const here=document.body.dataset.page||'home';
   let lang=(()=>{
-    const q=norm(new URLSearchParams(location.search).get('lang'));if(q)return q;
+    const q=norm(new URLSearchParams(location.search).get('lang'));
+    if(q){try{localStorage.setItem('lab-lang',q)}catch(e){}return q}
     try{const s=localStorage.getItem('lab-lang');if(ok(s))return s}catch(e){}
     for(const t of (navigator.languages||[navigator.language])){const l=norm(t);if(l)return l}
     return 'en';
@@ -72,7 +74,8 @@
     document.documentElement.lang=HTML_LANG[lang];
     font();
     document.querySelectorAll('[data-ko]').forEach(e=>{
-      const s=e.dataset,v=lang==='ko'?s.ko:lang==='en'?s.en:(s[lang]!==undefined?s[lang]:look(s.ko,s.en));
+      const s=e.dataset;let v=lang==='ko'?s.ko:lang==='en'?s.en:(s[lang]!==undefined?s[lang]:look(s.ko,s.en));
+      if(v==null)v=s.ko;
       if(e instanceof SVGElement)e.textContent=v;else e.innerHTML=v;
     });
     document.querySelectorAll('.lang button').forEach(b=>{const on=b.dataset.l===lang;b.classList.toggle('on',on);b.setAttribute('aria-pressed',on)});
@@ -88,12 +91,15 @@
   function fit(){const s=document.getElementById('stage');const k=Math.min(s.clientWidth/1280,s.clientHeight/720);document.getElementById('page').style.transform='scale('+k+')'}
   window.addEventListener('resize',fit);fit();
   const AGO={ko:['초 전','분 전','시간 전','일 전'],en:['s ago','m ago','h ago','d ago'],ja:['秒前','分前','時間前','日前'],zh:['秒前','分钟前','小时前','天前']};
-  window.LAB.ago=function(iso){const s=Math.max(0,(Date.now()-new Date(iso).getTime())/1000),u=AGO[lang];
-    if(s<60)return Math.round(s)+u[0];if(s<3600)return Math.round(s/60)+u[1];if(s<86400)return Math.round(s/3600)+u[2];return Math.round(s/86400)+u[3]};
+  window.LAB.ago=function(iso){const t=new Date(iso).getTime();if(!isFinite(t))return '—';
+    const s=Math.max(0,(Date.now()-t)/1000),u=AGO[lang],f=Math.floor;
+    if(s<60)return f(s)+u[0];if(s<3600)return f(s/60)+u[1];if(s<86400)return f(s/3600)+u[2];return f(s/86400)+u[3]};
   const CJK={ko:['억','만'],ja:['億','万'],zh:['亿','万']};
-  window.LAB.big=function(n){const c=CJK[lang];
-    if(c){if(n>=1e8)return (n/1e8).toFixed(1)+c[0];if(n>=1e4)return Math.round(n/1e4).toLocaleString()+c[1];return Math.round(n).toLocaleString()}
-    if(n>=1e9)return (n/1e9).toFixed(2)+'B';if(n>=1e6)return (n/1e6).toFixed(1)+'M';if(n>=1e3)return (n/1e3).toFixed(1)+'K';return Math.round(n).toLocaleString()};
+  const LOC={ko:'ko-KR',en:'en-US',ja:'ja-JP',zh:'zh-CN'};
+  window.LAB.num=n=>Math.round(n).toLocaleString(LOC[lang]);
+  window.LAB.big=function(n){const c=CJK[lang],num=window.LAB.num;
+    if(c){if(n>=99995000)return (n/1e8).toFixed(1)+c[0];if(n>=1e5)return num(n/1e4)+c[1];if(n>=1e4)return (n/1e4).toFixed(1)+c[1];return num(n)}
+    if(n>=1e9)return (n/1e9).toFixed(2)+'B';if(n>=1e6)return (n/1e6).toFixed(1)+'M';if(n>=1e3)return (n/1e3).toFixed(1)+'K';return num(n)};
   window.LAB.count=function(node,to,ms,fmt){const t0=performance.now();(function f(n){const k=Math.min(1,(n-t0)/ms);const e=1-Math.pow(1-k,3);node.textContent=fmt(to*e);if(k<1)requestAnimationFrame(f)})(t0)};
-  document.addEventListener('DOMContentLoaded',apply);
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',apply);else apply();
 })();
