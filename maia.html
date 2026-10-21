@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MAIA check — Ahn Research Group</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="assets/site.css?v=20261021e">
+<link rel="stylesheet" href="assets/site.css?v=20261022a">
 <style>
 .head{position:absolute;left:56px;top:68px;width:1168px}
 .head .ck{color:var(--brass);font-size:12px}
@@ -83,7 +83,8 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
   <div class="foot"><a href="index.html" data-ko="← 처음으로" data-en="← Home"></a><span>Esc</span><span class="r" data-ko="정의: MAIA v1.1 운영판 사양(초안)" data-en="Definition: MAIA v1.1 operational specification (draft)"></span></div>
 
 </div></div>
-<script src="assets/site.js?v=20261021e"></script>
+<script src="assets/i18n.js?v=20261022a"></script>
+<script src="assets/site.js?v=20261022a"></script>
 <script>
 (function(){
 const L=window.LAB,NS='http://www.w3.org/2000/svg';
@@ -99,7 +100,7 @@ const PRESETS=[
 const gates=['no','no','no'];
 const inputs=[...document.querySelectorAll('input[type=range]')];
 const pr=document.getElementById('presets');
-function drawPresets(){pr.innerHTML='';PRESETS.forEach((p,i)=>{const b=document.createElement('button');b.textContent=L.lang()==='ko'?p.ko:p.en;b.onclick=()=>load(i,b);pr.appendChild(b)})}
+function drawPresets(){pr.innerHTML='';PRESETS.forEach((p,i)=>{const b=document.createElement('button');b.textContent=L.T(p.ko,p.en);b.onclick=()=>load(i,b);pr.appendChild(b)})}
 function load(i,btn){const p=PRESETS[i];inputs.forEach((x,k)=>x.value=Math.round(p.c[k]*10));p.g.forEach((v,k)=>setGate(k,v));pr.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b===btn));update()}
 function setGate(k,v){gates[k]=v;document.querySelectorAll('.seg[data-g="'+k+'"] button').forEach(b=>b.classList.toggle('on',b.dataset.v===v))}
 document.querySelectorAll('.seg').forEach(s=>s.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;setGate(+s.dataset.g,b.dataset.v);pr.querySelectorAll('button').forEach(x=>x.classList.remove('on'));update()}));

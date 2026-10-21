@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Grants — Ahn Research Group</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="assets/site.css?v=20261021e">
+<link rel="stylesheet" href="assets/site.css?v=20261022a">
 <style>
 .head{position:absolute;left:56px;top:68px;width:1168px}
 .head .ck{color:var(--brass);font-size:12px}
@@ -77,15 +77,16 @@ const DEM = [
   ['10/15', 'KETEP 전력정보화·정책지원', 'KETEP power informatics and policy', '직류 수용가의 시설·검사·인증 제도 공백 분석과 제도개선 로드맵', 'Gaps in facility, inspection and certification rules for DC customers'],
 ];
 const ST = {sub:['제출','Submitted'], rev:['결과 대기','Awaiting'], pre:['준비','Preparing']};
-document.getElementById('runHead').outerHTML = '<div class="ck" data-ko="진행 중 ' + RUN.length + '건" data-en="IN PROGRESS · ' + RUN.length + '"></div>';
-document.getElementById('demHead').outerHTML = '<div class="ck" data-ko="기술수요조사 제출 ' + DEM.length + '건 · 2026" data-en="DEMAND SURVEYS SUBMITTED · ' + DEM.length + ' · 2026"></div>';
+document.getElementById('runHead').outerHTML = '<div class="ck" data-ko="진행 중 ' + RUN.length + '건" data-en="IN PROGRESS · ' + RUN.length + '" data-ja="進行中 ' + RUN.length + '件" data-zh="进行中 ' + RUN.length + '项"></div>';
+document.getElementById('demHead').outerHTML = '<div class="ck" data-ko="기술수요조사 제출 ' + DEM.length + '건 · 2026" data-en="DEMAND SURVEYS SUBMITTED · ' + DEM.length + ' · 2026" data-ja="技術需要調査 提出 ' + DEM.length + '件 · 2026" data-zh="技术需求调查 已提交 ' + DEM.length + '项 · 2026"></div>';
 document.getElementById('runRows').innerHTML = RUN.map(r =>
   '<div class="gr"><span class="d">' + r[0] + '</span><div><b data-ko="' + r[1] + '" data-en="' + r[2] + '"></b><small data-ko="' + r[3] + '" data-en="' + r[4] + '"></small></div>' +
   '<span class="pill s-' + r[5] + '" data-ko="' + ST[r[5]][0] + '" data-en="' + ST[r[5]][1] + '"></span></div>').join('');
 document.getElementById('demRows').innerHTML = DEM.map(r =>
   '<div class="gr"><span class="d">' + r[0] + '</span><div><b data-ko="' + r[1] + '" data-en="' + r[2] + '"></b><small data-ko="' + r[3] + '" data-en="' + r[4] + '"></small></div></div>').join('');
 </script>
-<script src="assets/site.js?v=20261021e"></script>
+<script src="assets/i18n.js?v=20261022a"></script>
+<script src="assets/site.js?v=20261022a"></script>
 <script>
 document.addEventListener('keydown', e => { if (e.key === 'Escape') { e.stopImmediatePropagation(); location.href = 'record.html'; } }, true);
 </script>

@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Development — Ahn Research Group</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="assets/site.css?v=20261021e">
+<link rel="stylesheet" href="assets/site.css?v=20261022a">
 <script src="pulse.js"></script>
 <style>
 .head{position:absolute;left:56px;top:68px;width:1168px}
@@ -73,7 +73,8 @@
   <div class="foot"><a href="index.html" data-ko="← 처음으로" data-en="← Home"></a><span>Esc</span><span class="r" data-ko="연구실 개발 기록에서 직접 집계" data-en="Counted directly from the lab's records"></span></div>
 
 </div></div>
-<script src="assets/site.js?v=20261021e"></script>
+<script src="assets/i18n.js?v=20261022a"></script>
+<script src="assets/site.js?v=20261022a"></script>
 <script>
 (function(){
 const L=window.LAB,NS='http://www.w3.org/2000/svg';
@@ -98,14 +99,14 @@ function render(first){
   countFrom(document.getElementById('kA'),shown.a,a.total,first?1400:900,v=>Math.round(v).toLocaleString());
   countFrom(document.getElementById('kD'),shown.d,P.datasets,first?900:600,v=>Math.round(v));
   shown={c:c.total,t:t.d30,a:a.total,d:P.datasets};
-  document.getElementById('kCd').textContent=L.T('오늘 +'+c.day+' · 7일 +'+c.week,'+'+c.day+' today · +'+c.week+' this week');
-  document.getElementById('kTd').textContent=L.T('오늘 +'+L.big(t.d1),'+'+L.big(t.d1)+' today');
+  document.getElementById('kCd').textContent=L.T('오늘 +'+c.day+' · 7일 +'+c.week,'+'+c.day+' today · +'+c.week+' this week','今日 +'+c.day+' · 7日 +'+c.week,'今天 +'+c.day+' · 7天 +'+c.week);
+  document.getElementById('kTd').textContent=L.T('오늘 +'+L.big(t.d1),'+'+L.big(t.d1)+' today','今日 +'+L.big(t.d1),'今天 +'+L.big(t.d1));
   document.getElementById('kAd').textContent='Codex '+a.codex+' · Claude '+a.claude+' · Gemini '+a.gemini;
   bars(document.getElementById('cTok'),[t.claude14,t.codex14],['#b9a37a','#7fa3c7'],460,190);
   bars(document.getElementById('cCom'),[c.spark14],['#8fae9a'],370,190);
-  document.getElementById('cWeek').textContent=L.T('7일 '+c.week+'회 · 오늘 '+c.day+'회',c.week+' this week · '+c.day+' today');
+  document.getElementById('cWeek').textContent=L.T('7일 '+c.week+'회 · 오늘 '+c.day+'회',c.week+' this week · '+c.day+' today','7日 '+c.week+'件 · 今日 '+c.day+'件','7天 '+c.week+'次 · 今天 '+c.day+'次');
   const f=document.getElementById('feed');f.innerHTML='';
-  c.feed.slice(0,5).forEach((x,i)=>{const d=document.createElement('div');d.className='fi';d.innerHTML='<i></i><div><b>'+(L.lang()==='ko'?x.ko:x.en)+'</b>'+(x.text?'<span>'+x.text.replace(/</g,'&lt;')+'</span>':'')+'</div><em data-t="'+x.t+'">'+L.ago(x.t)+'</em>';f.appendChild(d);setTimeout(()=>d.classList.add('on'),400+i*140)});
+  c.feed.slice(0,5).forEach((x,i)=>{const d=document.createElement('div');d.className='fi';d.innerHTML='<i></i><div><b>'+L.T(x.ko,x.en)+'</b>'+(x.text?'<span>'+x.text.replace(/</g,'&lt;')+'</span>':'')+'</div><em data-t="'+x.t+'">'+L.ago(x.t)+'</em>';f.appendChild(d);setTimeout(()=>d.classList.add('on'),400+i*140)});
   tick();
 }
 function tick(){if(!P)return;document.getElementById('upd').textContent=L.T('집계 ','counted ')+L.ago(P.generated_at);document.querySelectorAll('#feed em').forEach(e=>e.textContent=L.ago(e.dataset.t))}
