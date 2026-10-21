@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Data and code — Ahn Research Group</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="assets/site.css?v=20261021e">
+<style>
+.head{position:absolute;left:56px;top:68px;width:1168px}
+.sets{position:absolute;left:56px;top:178px;width:1168px;height:356px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.ds{display:flex;flex-direction:column}
+.ds .doi{font-family:var(--mono);font-size:12px;color:#9fb8d0;margin-top:8px}
+.ds h3{margin:8px 0 0;font-size:16.5px;line-height:1.35;font-weight:600;letter-spacing:-.2px}
+.ds ul{margin:10px 0 0;padding:0 0 0 16px;font-size:12.5px;color:#b4b1aa;line-height:1.6}
+.ds ul li::marker{color:#6b7078}
+.meta{display:grid;grid-template-columns:1fr 1fr;gap:8px 14px;margin-top:auto;padding-top:12px;border-top:1px solid var(--line)}
+.meta div{font-size:12px;color:var(--mute)}
+.meta b{display:block;font-family:var(--mono);font-size:13px;font-weight:500;color:#ece8e1;margin-top:2px}
+.rel{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:10px;font-size:12px;color:#cfcbc4}
+.act{display:flex;gap:8px;margin-top:12px}
+.act a,.act button{font-size:12px;font-weight:600;border:1px solid var(--line);border-radius:2px;padding:6px 12px;background:transparent;cursor:pointer;color:#ece8e1}
+.act a.p{background:#ece8e1;color:#0f1318;border-color:#ece8e1}
+.code{position:absolute;left:56px;top:548px;width:1168px;height:110px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.cc{padding:14px 18px}
+.cc b{display:block;font-size:14px;font-weight:600;margin-top:6px}
+.cc p{margin:4px 0 0;font-size:12px;color:var(--mute);line-height:1.5}
+.cc a{color:#ece8e1;border-bottom:1px solid rgba(185,163,122,.6)}
+.toast{position:absolute;left:50%;bottom:64px;transform:translateX(-50%);background:#ece8e1;color:#0f1318;font-size:12.5px;font-weight:600;padding:7px 14px;border-radius:2px;opacity:0;transition:opacity .3s;pointer-events:none}
+.toast.on{opacity:1}
+</style>
+</head>
+<body data-page="data">
+<div class="stage" id="stage"><div class="page" id="page">
+
+  <div class="head">
+    <div class="kicker" data-ko="공개 자료" data-en="DATA AND CODE"></div>
+    <div class="h2" data-ko="<em>데이터</em>와 코드" data-en="<em>Data</em> and code"></div>
+    <p class="lead" data-ko="논문에 사용한 데이터와 코드를 Zenodo에 영구 DOI로 공개합니다. 각 자료로 논문의 수치를 다시 계산할 수 있습니다." data-en="Data and code used in our papers are deposited on Zenodo with permanent DOIs, so the reported numbers can be recomputed."></p>
+  </div>
+
+  <div class="sets">
+    <div class="card ds rise">
+      <div class="ck" data-ko="데이터 · 코드" data-en="DATA · CODE"></div>
+      <div class="doi">10.5281/zenodo.23384455</div>
+      <h3 data-ko="인라인 검사 엔진의 계측 데이터와 코드" data-en="Line measurements and code for an inline inspection engine"></h3>
+      <ul>
+        <li data-ko="2026-10-15 실라인 계측(제외 회차 포함)" data-en="2026-10-15 line measurements, excluded runs kept"></li>
+        <li data-ko="영상 처리·판정 코드, 분석 생성 스크립트" data-en="Image-processing and decision code, analysis generators"></li>
+        <li data-ko="절차서, 사전등록·변경 기록" data-en="Procedures, pre-registration and deviation records"></li>
+      </ul>
+      <div class="rel"><span data-ko="관련 논문: 인라인 검사" data-en="Paper: inline inspection"></span><span class="pill" style="color:#9fb8d0;border-color:rgba(159,184,208,.5)" data-ko="투고" data-en="Submitted"></span></div>
+      <div class="meta"><div data-ko="공개일<b>2026-10-15</b>" data-en="Published<b>2026-10-15</b>"></div><div data-ko="파일<b>6개 · v1.1</b>" data-en="Files<b>6 · v1.1</b>"></div><div data-ko="라이선스<b>CC BY 4.0</b>" data-en="Licence<b>CC BY 4.0</b>"></div><div data-ko="원본 프레임<b>요청 시 제공</b>" data-en="Raw frames<b>on request</b>"></div></div>
+      <div class="act"><a class="p" href="https://doi.org/10.5281/zenodo.23384455" target="_blank" rel="noopener" data-ko="Zenodo에서 보기" data-en="Open on Zenodo"></a><button data-doi="10.5281/zenodo.23384455" data-ko="DOI 복사" data-en="Copy DOI"></button></div>
+    </div>
+
+    <div class="card ds rise" style="animation-delay:.08s">
+      <div class="ck" data-ko="이미지 데이터" data-en="IMAGE DATA"></div>
+      <div class="doi">10.5281/zenodo.23281316</div>
+      <h3 data-ko="고정 검사 절차의 코인셀 반복 촬영 이미지" data-en="Repeated coin-cell images for a frozen examination procedure"></h3>
+      <ul>
+        <li data-ko="셀 31개, 3회차 촬영, 윗면·아랫면" data-en="31 cells, three rounds, top and bottom faces"></li>
+        <li data-ko="시험일 이미지 231장, 개발일 이미지 143장" data-en="231 test-day and 143 development-day images"></li>
+        <li data-ko="라벨 956개, 분석 코드와 결과" data-en="956 labels, analysis code and outputs"></li>
+      </ul>
+      <div class="rel"><span data-ko="관련 논문: 반복 검사 정밀도" data-en="Paper: repeat-examination precision"></span><span class="pill" style="color:#c9a96e;border-color:rgba(201,169,110,.5)" data-ko="심사 중" data-en="In review"></span></div>
+      <div class="meta"><div data-ko="공개일<b>2026-10-11</b>" data-en="Published<b>2026-10-11</b>"></div><div data-ko="파일<b>75개 · 약 852 MB</b>" data-en="Files<b>75 · about 852 MB</b>"></div><div data-ko="라이선스<b>CC BY 4.0</b>" data-en="Licence<b>CC BY 4.0</b>"></div><div data-ko="버전<b>v1.1 (최신)</b>" data-en="Version<b>v1.1 (latest)</b>"></div></div>
+      <div class="act"><a class="p" href="https://doi.org/10.5281/zenodo.23281316" target="_blank" rel="noopener" data-ko="Zenodo에서 보기" data-en="Open on Zenodo"></a><button data-doi="10.5281/zenodo.23281316" data-ko="DOI 복사" data-en="Copy DOI"></button></div>
+    </div>
+
+    <div class="card ds rise" style="animation-delay:.16s">
+      <div class="ck" data-ko="데이터 · 코드" data-en="DATA · CODE"></div>
+      <div class="doi">10.5281/zenodo.23434303</div>
+      <h3 data-ko="PLC 비트 로그의 래더 프로그램 적합성 검사" data-en="Ladder-program conformance checking of PLC bit logs"></h3>
+      <ul>
+        <li data-ko="검사 코드와 도구, 래더 프로그램" data-en="Checking code and tools, ladder programs"></li>
+        <li data-ko="2026-10-17 실라인 PLC 로그" data-en="Physical-line PLC logs of 2026-10-17"></li>
+        <li data-ko="사전등록, 설계 근거, 결과" data-en="Pre-registration, design rationale, results"></li>
+      </ul>
+      <div class="rel"><span data-ko="관련 논문: 래더 적합성 검사" data-en="Paper: ladder conformance"></span><span class="pill" style="color:#8fae9a;border-color:rgba(143,174,154,.5)" data-ko="사전등록" data-en="Pre-registered"></span></div>
+      <div class="meta"><div data-ko="공개일<b>2026-10-17</b>" data-en="Published<b>2026-10-17</b>"></div><div data-ko="파일<b>11개 · 약 11 MB</b>" data-en="Files<b>11 · about 11 MB</b>"></div><div data-ko="라이선스<b>MIT · CC BY 4.0</b>" data-en="Licence<b>MIT · CC BY 4.0</b>"></div><div data-ko="구분<b>코드 MIT, 데이터 CC BY</b>" data-en="Split<b>code MIT, data CC BY</b>"></div></div>
+      <div class="act"><a class="p" href="https://doi.org/10.5281/zenodo.23434303" target="_blank" rel="noopener" data-ko="Zenodo에서 보기" data-en="Open on Zenodo"></a><button data-doi="10.5281/zenodo.23434303" data-ko="DOI 복사" data-en="Copy DOI"></button></div>
+    </div>
+  </div>
+
+  <div class="code">
+    <div class="card cc rise" style="animation-delay:.24s"><div class="ck" data-ko="코드 · 이 사이트에서 실행" data-en="CODE · RUNS ON THIS SITE"></div><b data-ko="MAIA 작업 배분 계산" data-en="MAIA task allocation rule"></b><p data-ko="v1.1 운영판 초안의 점수·관문 계산을 <a href=&quot;maia.html&quot;>MAIA 진단</a> 페이지 소스에 그대로 공개합니다." data-en="The score and gate rule of the v1.1 draft is published as the source of the <a href=&quot;maia.html&quot;>MAIA check</a> page."></p></div>
+    <div class="card cc rise" style="animation-delay:.3s"><div class="ck" data-ko="코드 · 집계" data-en="CODE · AGGREGATION"></div><b data-ko="개발 현황 집계 스크립트" data-en="Development activity aggregator"></b><p data-ko="<a href=&quot;open.html&quot;>개발 현황</a>의 숫자를 git 기록과 세션 기록에서 집계합니다. 대화 원문은 내보내지 않습니다." data-en="Builds the numbers on <a href=&quot;open.html&quot;>Development</a> from git and session logs; conversation text is never exported."></p></div>
+    <div class="card cc rise" style="animation-delay:.36s"><div class="ck" data-ko="코드 저장소" data-en="CODE REPOSITORY"></div><b data-ko="GitHub 공개 저장소" data-en="Public GitHub repository"></b><p data-ko="개인정보와 라이선스 제한 자료를 걸러 낸 공개 저장소를 준비하고 있습니다." data-en="A public repository with personal and licence-restricted material filtered out is in preparation."></p></div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <div class="foot"><a href="index.html" data-ko="← 처음으로" data-en="← Home"></a><span>Esc</span><span class="r" data-ko="2026년 10월 21일 기준" data-en="As of 21 October 2026"></span></div>
+
+</div></div>
+<script src="assets/site.js?v=20261021e"></script>
+<script>
+(function(){
+const L=window.LAB,t=document.getElementById('toast');
+document.addEventListener('click',async e=>{const b=e.target.closest('button[data-doi]');if(!b)return;
+  try{await navigator.clipboard.writeText('https://doi.org/'+b.dataset.doi);t.textContent=L.T('DOI를 복사했습니다','DOI copied')}catch(_){t.textContent='https://doi.org/'+b.dataset.doi}
+  t.classList.add('on');setTimeout(()=>t.classList.remove('on'),1800)});
+})();
+</script>
+</body>
+</html>

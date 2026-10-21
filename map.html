@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Research architecture — Ahn Research Group</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="assets/site.css?v=20261021e">
+<style>
+.head{position:absolute;left:56px;top:68px;width:1168px}
+#arch{position:absolute;left:40px;top:182px;width:860px;height:478px}
+.panel{position:absolute;left:916px;top:186px;width:308px;height:470px;display:flex;flex-direction:column}
+.tag{font-size:10px;font-weight:600;letter-spacing:2.2px;fill:#8d929b}
+.tagk{font-size:12px;font-weight:600;fill:#ece8e1}
+.band{opacity:0;transform:translateY(10px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
+.band.on{opacity:1;transform:none}
+.cell{fill:rgba(236,232,225,.025);stroke:rgba(236,232,225,.12)}
+.ctext{font-size:12.5px;fill:#cfcbc4;text-anchor:middle}
+.core rect{fill:rgba(185,163,122,.12);stroke:#b9a37a;stroke-width:1.2}
+.pillar{cursor:pointer;transform-box:fill-box;transform-origin:50% 100%;transform:scaleY(0);transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+.pillar.on{transform:scaleY(1)}
+.pillar rect.body{fill:rgba(236,232,225,.03);stroke-width:1;transition:fill .25s}
+.pillar:hover rect.body,.pillar.sel rect.body{fill:rgba(236,232,225,.07)}
+.pname{font-size:13.5px;font-weight:600;fill:#ece8e1;text-anchor:middle}
+.pq{font-size:11px;fill:#8d929b;text-anchor:middle}
+.pcount{font-family:var(--mono);font-size:11px;fill:#8d929b;text-anchor:middle}
+.out{opacity:0;transition:opacity .5s}
+.out.on{opacity:1}
+.pn h3{margin:8px 0 0;font-size:20px;font-weight:600;letter-spacing:-.3px}
+.pn .q{margin:8px 0 0;font-size:14px;color:#ece8e1;line-height:1.55}
+.pn .w{margin:8px 0 0;font-size:12.5px;color:var(--mute);line-height:1.55}
+.lv{margin-top:14px;display:flex;flex-direction:column;gap:9px}
+.lv div{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;font-size:13px;color:#ece8e1;padding-bottom:9px;border-bottom:1px solid var(--line)}
+.lv div:last-child{border-bottom:0}
+.lv a{color:#ece8e1;border-bottom:1px solid rgba(185,163,122,.6)}
+.st{font-size:10.5px;font-weight:600;padding:2px 8px;border:1px solid;border-radius:2px;white-space:nowrap}
+.legend{margin-top:12px;display:flex;flex-direction:column;gap:12px}
+.legend div{display:grid;grid-template-columns:70px 1fr;gap:10px;font-size:13px;line-height:1.5}
+.legend b{font-size:11px;font-weight:600;letter-spacing:1px;color:var(--brass);padding-top:2px}
+.legend span{color:#b4b1aa}
+.pn .more{margin-top:auto;font-size:12px;color:var(--mute)}
+</style>
+</head>
+<body data-page="map">
+<div class="stage" id="stage"><div class="page" id="page">
+
+  <div class="head">
+    <div class="kicker" data-ko="연구 아키텍처" data-en="RESEARCH ARCHITECTURE"></div>
+    <div class="h2" data-ko="연구 분야와 <em>공통 판단 기준</em>" data-en="Research areas and the <em>common decision rule</em>"></div>
+    <p class="lead" data-ko="현장 데이터와 도메인 지식을 바탕으로 연구 분야를 나누고, 각 분야의 결과를 MAIA 판단 기준으로 검증합니다." data-en="Research areas build on field data and domain knowledge, and each area's results are checked against the MAIA rule."></p>
+  </div>
+
+  <svg id="arch" viewBox="0 0 860 478"></svg>
+
+  <div class="card panel pn" id="panel"></div>
+
+  <div class="foot"><a href="index.html" data-ko="← 처음으로" data-en="← Home"></a><span>Esc</span><span class="r" data-ko="각 연구 분야는 MAIA 판단 기준으로 검증합니다. 모든 연구가 MAIA에서 나온 것은 아닙니다." data-en="Each research area is checked against the MAIA rule; not every area originates from MAIA."></span></div>
+
+</div></div>
+<script src="assets/site.js?v=20261021e"></script>
+<script>
+(function(){
+const L=window.LAB,NS='http://www.w3.org/2000/svg',svg=document.getElementById('arch');
+function el(tag,a,p){const e=document.createElementNS(NS,tag);for(const k in a)e.setAttribute(k,a[k]);(p||svg).appendChild(e);return e}
+function tx(x,y,ko,en,cls,p,extra){const t=el('text',Object.assign({x,y,class:cls},extra||{}),p);t.dataset.ko=ko;t.dataset.en=en;return t}
+
+const X0=104,W=756,COLW=140,GAP=(W-5*COLW)/4;
+const Y={out:[10,130],trk:[142,300],core:[312,370],dom:[382,424],dat:[436,476]};
+
+// status vocabulary (achievements only)
+const ST={sub:['투고','Submitted','#9fb8d0'],rev:['심사 중','In review','#c9a96e'],fix:['수정 중','Revising','#b4b1aa'],pre:['사전등록','Pre-registered','#8fae9a'],run:['운영 중','In use','#8fae9a'],dev:['진행 중','In progress','#b4b1aa'],win:['수상','Award','#b9a37a'],open:['공개','Open','#9fb8d0']};
+const TR=[
+  {id:'A',c:'#b9a37a',ko:'AI 적용성',en:'AI applicability',q:[['작업별','AI·사람 배분'],['Task allocation','between AI and people']],
+   wko:'작업마다 점수와 관문으로 AI·협업·사람을 가립니다.',wen:'Scores and gates decide AI, together, or a person for each task.',
+   leaves:[['MAIA 적용성 지수','MAIA applicability index','fix'],['비보상 관문 계약','Non-compensatory gate contract','rev'],['MAIA 진단 체험','Try the MAIA check','open','maia.html']],short:[['MAIA 지수','MAIA index'],['비보상 관문','Gate contract'],['MAIA 진단','MAIA check']]},
+  {id:'B',c:'#a3b5c6',ko:'제조·피지컬 AI',en:'Physical AI',q:[['현장 AI 판정의','안전 확보'],['Safe AI decisions','on the shop floor']],
+   wko:'AI는 판정만 하고, 제어는 PLC가 맡는 구조를 실제 라인에서 시험합니다.',wen:'AI only judges and the PLC keeps control — tested on a real line.',
+   leaves:[['인라인 검사: 차단 경로와 PLC 관측 지연','Inline inspection: fail-closed routing and PLC-observed latency','sub'],['고정 검사의 반복 정밀도','Precision of a frozen inspection procedure','rev'],['래더 프로그램 적합성 검사','Ladder-program conformance checking','pre'],['코인셀 MPS 시험 라인','Coin-cell MPS test line','run']],short:[['인라인 검사','Inline inspection'],['반복 정밀도','Repeat precision'],['래더 적합성','Ladder conformance'],['코인셀 시험 라인','Coin-cell test line']]},
+  {id:'D',c:'#b0a690',ko:'에너지×제조',en:'Energy × mfg',q:[['전력과 품질의','동시 분석'],['Joint analysis of','power and quality']],
+   wko:'공정 이벤트에 시각을 맞춘 전력 계측으로 두 가지를 잇습니다.',wen:'Power measured in step with process events links the two.',
+   leaves:[['공정 이벤트 동기 전력 분해','Event-synchronized power disaggregation','dev']],short:[['공정 동기 전력 분해','Event-synced power']]},
+  {id:'C',c:'#b9976a',ko:'에너지·계통',en:'Energy & grid',q:[['전력 제약 하의','의사결정'],['Decisions under','power constraints']],
+   wko:'요금 구간 제어와 순간 보호를 나눠 공장 마이크로그리드를 운영합니다.',wen:'Billing-window control and instant protection, kept in separate layers.',
+   leaves:[['로봇 공장 마이크로그리드 계층형 에너지 관리','Hierarchical energy management for a robotic factory microgrid','rev'],['PV·ESS·라인 부하 트윈','PV · storage · line-load twin','dev'],['엣지 AI 부하 전력 계측','Edge-AI load power measurement','dev']],short:[['마이크로그리드 EMS','Microgrid EMS'],['PV·ESS 트윈','PV·ESS twin'],['엣지 AI 부하','Edge-AI load']]},
+  {id:'E',c:'#8fae9a',ko:'교육·기술이전',en:'Education',q:[['판단 기준의','교육·이전'],['Teaching and','transferring the rules']],
+   wko:'검증된 방법을 수업과 실습으로 옮깁니다.',wen:'We turn verified methods into courses and hands-on work.',
+   leaves:[['비전공자 PLC·비전·데이터 실습','Hands-on PLC, vision and data for non-majors','run'],['학생 포트폴리오','Student portfolios','run'],['2026 MECA KOREA CUP 최우수상(지도)','2026 MECA KOREA CUP Grand Prize (advisor)','win']],short:[['비전공 실습','Hands-on courses'],['학생 포트폴리오','Student portfolios'],['MECA 최우수상','MECA Grand Prize']]}
+];
+
+// layer tags (left)
+[['산출물','OUTPUTS',Y.out],['연구 분야','AREAS',Y.trk],['코어','CORE',Y.core],['도메인','DOMAIN',Y.dom],['데이터','DATA',Y.dat]].forEach(([ko,en,[a,b]])=>{
+  const m=(a+b)/2;tx(0,m-2,ko,'','tagk');const t=el('text',{x:0,y:m+13,class:'tag'});t.textContent=en;
+  el('line',{x1:0,x2:84,y1:b,y2:b,stroke:'rgba(236,232,225,.06)'});
+});
+
+// data band
+const dat=el('g',{class:'band'});
+el('rect',{x:X0,y:Y.dat[0],width:W,height:Y.dat[1]-Y.dat[0],class:'cell'},dat);
+tx(X0+W/2,Y.dat[0]+25,'현장 데이터 · 계측 기록 · 문헌·표준','Field data · measurement logs · literature & standards','ctext',dat);
+
+// domain band: three cells
+const dom=el('g',{class:'band'});const dw=(W-2*8)/3;
+[['전력계통 최적화 연구','Power-system optimization'],['산업 제어 개발','Industrial control development'],['현장 설비·교육','Shop-floor equipment & teaching']].forEach(([ko,en],i)=>{
+  const x=X0+i*(dw+8);el('rect',{x,y:Y.dom[0],width:dw,height:Y.dom[1]-Y.dom[0],class:'cell'},dom);tx(x+dw/2,Y.dom[0]+26,ko,en,'ctext',dom);
+});
+
+// core band: MAIA
+const core=el('g',{class:'band core'});
+el('rect',{x:X0,y:Y.core[0],width:W,height:Y.core[1]-Y.core[0]},core);
+el('text',{x:X0+22,y:Y.core[0]+37,'font-size':24,'font-weight':600,fill:'#ece8e1','letter-spacing':1.5},core).textContent='MAIA';
+tx(X0+124,Y.core[0]+24,'AI 적용 판단 엔진','AI applicability engine','',core,{'font-size':13,'font-weight':600,fill:'#ece8e1'});
+tx(X0+124,Y.core[0]+43,'HARI 관문·기권 · 증거 검증 · 시험 전 기준 고정','HARI gates and abstention · evidence checks · rules fixed before testing','',core,{'font-size':12,fill:'#b4b1aa'});
+
+// tracks (pillars) + outputs
+const pg=el('g',{}),og=el('g',{});
+TR.forEach((t,i)=>{
+  const x=X0+i*(COLW+GAP);t.x=x;
+  const g=el('g',{class:'pillar'},pg);t.g=g;
+  el('rect',{x,y:Y.trk[0],width:COLW,height:Y.trk[1]-Y.trk[0],class:'body',stroke:t.c,'stroke-opacity':.55},g);
+  el('rect',{x,y:Y.trk[0],width:COLW,height:3,fill:t.c},g);
+  tx(x+COLW/2,Y.trk[0]+32,t.ko,t.en,'pname',g);
+  t.q1=tx(x+COLW/2,Y.trk[0]+58,t.q[0][0],t.q[1][0],'pq',g);t.q2=tx(x+COLW/2,Y.trk[0]+74,t.q[0][1],t.q[1][1],'pq',g);
+  // footing into the core
+  el('line',{x1:x+COLW/2,x2:x+COLW/2,y1:Y.trk[1],y2:Y.core[0],stroke:t.c,'stroke-opacity':.7},g);
+  const n=t.leaves.length;
+  tx(x+COLW/2,Y.trk[1]-14,'산출물 '+n,n+(n>1?' outputs':' output'),'pcount',g);
+  // output blocks above the pillar, coloured by status
+  t.outs=t.leaves.map((lf,j)=>{const s=ST[lf[2]];const bh=24,yy=Y.out[1]-(j+1)*(bh+6);const r=el('g',{class:'out'},og);
+    el('rect',{x,y:yy,width:COLW,height:bh,fill:'rgba(236,232,225,.02)',stroke:s[2],'stroke-opacity':.45},r);el('rect',{x,y:yy,width:3,height:bh,fill:s[2]},r);
+    tx(x+12,yy+16,t.short[j][0],t.short[j][1],'',r,{'font-size':11,fill:'#cfcbc4'});return r});
+  g.addEventListener('mouseenter',()=>show(t));g.addEventListener('click',()=>show(t,true));
+});
+svg.addEventListener('mouseleave',()=>{if(!pinned)legend()});
+
+// panel
+const panel=document.getElementById('panel');let pinned=null;
+function legend(){
+  TR.forEach(t=>t.g.classList.remove('sel'));
+  panel.innerHTML='<div class="ck">'+L.T('읽는 법','HOW TO READ')+'</div><div class="legend">'
+   +'<div><b>'+L.T('산출물','OUTPUTS')+'</b><span>'+L.T('논문 · 공개 데이터 · 시험대. 색은 상태','Papers · open data · test beds, coloured by status')+'</span></div>'
+   +'<div><b>'+L.T('연구 분야','AREAS')+'</b><span>'+L.T('분야별 연구 주제','Research topic of each area')+'</span></div>'
+   +'<div><b>'+L.T('코어','CORE')+'</b><span>'+L.T('MAIA: 모든 분야에 같은 판단 기준 적용','MAIA: the same decision rule for every area')+'</span></div>'
+   +'<div><b>'+L.T('도메인','DOMAIN')+'</b><span>'+L.T('전력계통 · 산업 제어 · 현장 설비와 교육','Power systems · industrial control · shop floor and teaching')+'</span></div>'
+   +'<div><b>'+L.T('데이터','DATA')+'</b><span>'+L.T('현장 데이터 · 계측 기록 · 문헌과 표준','Field data · measurement logs · literature')+'</span></div>'
+   +'</div><div class="more">'+L.T('분야를 선택하면 연구 내용과 산출물이 표시됩니다.','Select an area to show its work and outputs.')+'</div>';
+}
+function show(t,pin){
+  if(pin)pinned=t;if(pinned&&pinned!==t&&!pin)return;
+  TR.forEach(x=>x.g.classList.toggle('sel',x===t));
+  panel.innerHTML='<div class="ck" style="color:'+t.c+'">'+L.T('연구 분야 ','AREA ')+t.id+'</div><h3>'+L.T(t.ko,t.en)+'</h3><p class="q">'+L.T(t.q[0].join(' '),t.q[1].join(' '))+'</p><p class="w">'+L.T(t.wko,t.wen)+'</p><div class="lv">'
+   +t.leaves.map(lf=>{const s=ST[lf[2]];const name=L.T(lf[0],lf[1]);return '<div>'+(lf[3]?'<a href="'+lf[3]+'">'+name+'</a>':'<span>'+name+'</span>')+'<span class="st" style="color:'+s[2]+';border-color:'+s[2]+'88">'+L.T(s[0],s[1])+'</span></div>'}).join('')
+   +'</div><div class="more">'+L.T('분야별 상세 페이지는 준비 중입니다.','Area pages are in preparation.')+'</div>';
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&pinned){pinned=null;legend();e.stopImmediatePropagation()}},true);
+
+// build sequence: data → domain → core → tracks → outputs
+const at=(ms,f)=>setTimeout(f,ms);
+[dat,dom,core].forEach((g,i)=>at(200+i*450,()=>g.classList.add('on')));
+TR.forEach((t,i)=>at(1700+i*140,()=>t.g.classList.add('on')));
+let k=0;TR.forEach(t=>t.outs.forEach(o=>at(2800+(k++)*90,()=>o.classList.add('on'))));
+
+L.onLang.push(()=>{if(pinned)show(pinned,true);else legend()});
+})();
+</script>
+</body>
+</html>

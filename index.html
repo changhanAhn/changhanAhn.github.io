@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ahn Research Group — AI for Energy and Manufacturing</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="assets/site.css?v=20261021e">
+<style>
+.head{position:absolute;left:56px;top:84px;width:1168px}
+h1{margin:14px 0 0;font-family:var(--head);font-size:40px;line-height:1.2;letter-spacing:-.8px;font-weight:600}
+h1 em{font-style:normal;color:var(--brass)}
+.sub{margin:14px 0 0;font-size:16px;color:#b4b1aa;letter-spacing:-.1px}
+#anim{position:absolute;left:56px;top:214px;width:1168px;height:446px}
+.plate{opacity:0;transform:translateY(-26px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.8,.2,1)}
+.plate.on{opacity:1;transform:none}
+.plabel{font-size:12px;font-weight:600;letter-spacing:2.4px}
+.psub{font-size:11px;fill:var(--mute);letter-spacing:.3px}
+.dot{opacity:0;transform-box:fill-box;transform-origin:center;transform:scale(0);transition:all .45s cubic-bezier(.3,1.6,.5,1)}
+.dot.on{opacity:1;transform:scale(1)}
+.halo{display:none}
+@keyframes halo{0%{transform:scale(.6);opacity:.9}100%{transform:scale(2.4);opacity:0}}
+.conn{fill:none;stroke-width:1;opacity:.55;transition:stroke-dashoffset .9s ease}
+.row{opacity:0;transform:translateX(18px);transition:opacity .45s ease,transform .45s ease}
+.row.on{opacity:1;transform:none}
+.row.done{opacity:.38;transition:opacity .6s ease}
+.rbg{fill:rgba(236,232,225,.02);stroke:rgba(236,232,225,.09)}
+.rlabel{font-size:14px;font-weight:500;fill:var(--txt)}
+.bar{transform-box:fill-box;transform-origin:50% 100%;transform:scaleY(0);transition:transform .7s cubic-bezier(.2,.8,.2,1)}
+.row.score .bar{transform:scaleY(1)}
+.snum{font-family:var(--mono);font-size:14px;font-weight:500;fill:#ece8e1}
+.gate{fill:none;stroke:rgba(236,232,225,.25);transition:fill .4s,stroke .4s}
+.gate.ok{fill:none;stroke:#8fae9a}
+.gate.fire{fill:#b77a6f;stroke:#b77a6f}
+.hb{opacity:0;transition:opacity .35s}
+.row.hari .hb{opacity:1}
+.vstripe{opacity:0;transition:opacity .4s}
+.row.verdict .vstripe{opacity:1}
+.hdr{font-size:10.5px;font-weight:600;letter-spacing:2px;fill:var(--mute)}
+.beam{opacity:0;transition:opacity .4s}
+.beam.on{opacity:1}
+.bin{fill:rgba(236,232,225,.02);stroke-width:1}
+.binlabel{font-size:13px;font-weight:600;letter-spacing:2px}
+.bincount{font-size:36px;font-weight:500;font-family:var(--head)}
+.cap{opacity:0;transition:opacity 1.2s}
+.cap.on{opacity:1}
+.demo{font-size:10.5px;fill:var(--mute);letter-spacing:.3px}
+.flow{stroke-dasharray:2 8;animation:flow 3s linear infinite}
+@keyframes flow{to{stroke-dashoffset:-20}}
+.strip{position:absolute;left:56px;right:56px;bottom:12px;height:40px;display:flex;align-items:center;gap:10px;border-top:1px solid var(--line);padding-top:10px}
+.strip .sk{font-size:10.5px;font-weight:600;letter-spacing:2.4px;color:var(--brass);margin-right:10px;white-space:nowrap}
+.br{display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:500;padding:4px 14px 4px 0;margin-right:4px;color:#cfcbc4;white-space:nowrap;border-right:1px solid var(--line)}
+.br i{width:6px;height:6px;border-radius:50%}
+.strip .go{margin-left:auto;display:flex;gap:8px}
+.strip .go a{font-size:12.5px;font-weight:600;border-radius:2px;padding:7px 16px;white-space:nowrap;letter-spacing:.3px}
+.strip .go .m{background:#ece8e1;color:#0f1318}
+.strip .go .o{border:1px solid var(--line);color:#cfcbc4;display:flex;align-items:center;gap:8px}
+</style>
+</head>
+<body data-page="home">
+<div class="stage" id="stage"><div class="page" id="page">
+
+  <div class="head">
+    <div class="kicker" data-ko="에너지 · 제조 · AI" data-en="ENERGY · MANUFACTURING · AI"></div>
+    <h1 data-ko="에너지·제조 현장에서 AI에 무엇을, <em>어디까지</em> 맡길까" data-en="In energy and manufacturing, what should AI be <em>trusted with?</em>"></h1>
+    <p class="sub" data-ko="작업 단위로 AI 적용 범위를 진단하고, 그 결과를 실제 설비에서 검증합니다." data-en="We assess, task by task, where AI can be applied and verify the assessment on real equipment."></p>
+  </div>
+
+  <svg id="anim" viewBox="0 0 1168 454">
+    <defs>
+      <filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3.4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+      <linearGradient id="beamM" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#a78bfa" stop-opacity="0"/><stop offset=".5" stop-color="#a78bfa" stop-opacity=".55"/><stop offset="1" stop-color="#a78bfa" stop-opacity="0"/></linearGradient>
+      <linearGradient id="beamH" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#34d399" stop-opacity="0"/><stop offset=".5" stop-color="#34d399" stop-opacity=".55"/><stop offset="1" stop-color="#34d399" stop-opacity="0"/></linearGradient>
+    </defs>
+    <g id="stack"></g>
+    <g id="conns"></g>
+    <g id="table"></g>
+    <g id="bins"></g>
+    <g id="fly"></g>
+    <g class="cap" id="cap">
+      <line x1="30" y1="34" x2="62" y2="34" stroke="#b9a37a"/>
+      <text x="74" y="39" font-size="17" font-weight="500" fill="#ece8e1" font-family="IBM Plex Sans KR, sans-serif" data-ko="배분 결과(예시): AI 2건 · 협업 2건 · 사람 2건" data-en="Allocation (example): AI 2 · together 2 · person 2"></text>
+    </g>
+  </svg>
+
+  <div class="strip">
+    <a class="sk" href="map.html" data-ko="연구 아키텍처" data-en="ARCHITECTURE"></a>
+    <span class="br"><i style="background:#b9a37a"></i><span data-ko="AI 적용성" data-en="AI applicability"></span></span>
+    <span class="br"><i style="background:#a3b5c6"></i><span data-ko="제조·피지컬 AI" data-en="Physical AI"></span></span>
+    <span class="br"><i style="background:#b9976a"></i><span data-ko="에너지·계통" data-en="Energy & grid"></span></span>
+    <span class="br"><i style="background:linear-gradient(90deg,#b9976a,#a3b5c6)"></i><span data-ko="에너지×제조" data-en="Energy × mfg"></span></span>
+    <span class="br"><i style="background:#8fae9a"></i><span data-ko="교육·기술이전" data-en="Education"></span></span>
+    <span class="go">
+      <a class="m" href="maia.html" data-ko="MAIA 진단 해 보기 →" data-en="Try MAIA →"></a>
+      <a class="o" href="open.html"><span class="ld"></span><span data-ko="개발 현황 LIVE" data-en="Development LIVE"></span></a>
+    </span>
+  </div>
+
+</div></div>
+<script src="assets/site.js?v=20261021e"></script>
+<script>
+(function(){
+const NS='http://www.w3.org/2000/svg',L=window.LAB;
+function el(tag,attrs,parent){const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e}
+
+/* ---------- layer stack: energy (grid, plant) under manufacturing (line, equipment) ---------- */
+const CX=230,W=400,H=140,TH=11;
+const LAYERS=[
+  {id:'grid',cy:372,c:'#b9976a',ko:'계통',en:'GRID',sko:'PV · ESS · 수급',sen:'PV · storage · supply'},
+  {id:'plant',cy:290,c:'#a99a82',ko:'공장',en:'PLANT',sko:'에너지 · 택트',sen:'energy · takt'},
+  {id:'line',cy:208,c:'#8ea3b5',ko:'라인',en:'LINE',sko:'공정 · 흐름',sen:'process · flow'},
+  {id:'eq',cy:126,c:'#a3b5c6',ko:'설비',en:'EQUIPMENT',sko:'PLC · 로봇 · 카메라',sen:'PLC · robot · camera'}
+];
+const stack=document.getElementById('stack'),plates={};
+LAYERS.forEach(Ly=>{
+  const g=el('g',{class:'plate'},stack),x0=CX-W/2,x1=CX+W/2,cy=Ly.cy;
+  el('polygon',{points:`${x0},${cy} ${CX},${cy+H/2} ${CX},${cy+H/2+TH} ${x0},${cy+TH}`,fill:Ly.c,'fill-opacity':.1},g);
+  el('polygon',{points:`${CX},${cy+H/2} ${x1},${cy} ${x1},${cy+TH} ${CX},${cy+H/2+TH}`,fill:Ly.c,'fill-opacity':.05},g);
+  el('polygon',{points:`${CX},${cy-H/2} ${x1},${cy} ${CX},${cy+H/2} ${x0},${cy}`,fill:Ly.c,'fill-opacity':.035,stroke:Ly.c,'stroke-opacity':.55,'stroke-width':1},g);
+  for(let k=1;k<4;k++){const f=k/4;el('line',{x1:x0+(CX-x0)*f,y1:cy-(H/2)*f,x2:CX+(x1-CX)*f,y2:cy+(H/2)*(1-f),stroke:Ly.c,'stroke-opacity':.07},g)}
+  const lb=el('text',{x:x0+34,y:cy+4,class:'plabel',fill:Ly.c},g);lb.dataset.ko=Ly.ko;lb.dataset.en=Ly.en;
+  const sb=el('text',{x:x0+34,y:cy+19,class:'psub'},g);sb.dataset.ko=Ly.sko;sb.dataset.en=Ly.sen;
+  icon(Ly.id,g,Ly.c,cy);plates[Ly.id]={g,cy,c:Ly.c};
+});
+const flowG=el('g',{opacity:.55},stack);
+[[CX+176,372,290],[CX+176,290,208],[CX+176,208,126]].forEach(([x,a,b])=>el('line',{x1:x,y1:a,x2:x,y2:b,stroke:'#b9976a','stroke-width':1,class:'flow'},flowG));
+function icon(id,g,c,cy){
+  const s={stroke:c,'stroke-width':1.1,fill:'none','stroke-opacity':.7};
+  if(id==='grid'){
+    el('path',Object.assign({d:`M${CX+110} ${cy-2} l9 -34 l9 34 M${CX+112} ${cy-14} h14 M${CX+114} ${cy-25} h10 M${CX+105} ${cy-30} h28`},s),g);
+    el('path',Object.assign({d:`M${CX+36} ${cy+24} l20 -9 l25 7 l-20 9 z M${CX+46} ${cy+19} l25 7`},s),g);
+    el('rect',Object.assign({x:CX-12,y:cy-30,width:16,height:24,rx:2},s),g);el('path',Object.assign({d:`M${CX-7} ${cy-32} h6 M${CX-6} ${cy-16} l3 -7 l1 6 l3 -7`},s),g);
+  }else if(id==='plant'){
+    el('path',Object.assign({d:`M${CX+48} ${cy+8} v-25 l16 -9 v9 l16 -9 v9 l16 -9 v34 z M${CX+102} ${cy-14} v-18 h7 v16`},s),g);
+  }else if(id==='line'){
+    el('path',Object.assign({d:`M${CX+12} ${cy+19} l104 -35 M${CX+19} ${cy+26} l104 -35`},s),g);
+    [[34,9],[66,-2],[96,-12]].forEach(([dx,dy])=>el('rect',Object.assign({x:CX+dx,y:cy+dy-7,width:11,height:9},s),g));
+  }else{
+    el('path',Object.assign({d:`M${CX+70} ${cy+12} h20 M${CX+80} ${cy+12} v-16 l14 -14 l12 7 M${CX+106} ${cy-23} l3 7`},s),g);
+    el('rect',Object.assign({x:CX+18,y:cy-26,width:18,height:12,rx:2},s),g);el('path',Object.assign({d:`M${CX+36} ${cy-22} l7 -3 v11 l-7 -3`},s),g);
+    el('rect',Object.assign({x:CX-24,y:cy+7,width:25,height:16,rx:1},s),g);el('path',Object.assign({d:`M${CX-19} ${cy+13} h15 M${CX-19} ${cy+18} h11`},s),g);
+  }
+}
+
+/* ---------- tasks (illustrative; MAIA v1.1: S = mean(C1,C2,C3,C4,C6); gates HG-1/2/3) ---------- */
+const TASKS=[
+  {ko:'외관 검사 판정',en:'Visual inspection call',L:'eq',dx:84,dy:-4,c:[.8,.8,.7,.8,.8],g:[0,0,0],h:'ok'},
+  {ko:'PLC 로그 대조',en:'PLC log conformance',L:'line',dx:-66,dy:8,c:[.9,.8,.9,.9,.7],g:[0,0,0],h:'ok'},
+  {ko:'15분 전력 계획',en:'15-min power plan',L:'grid',dx:-80,dy:10,c:[.6,.7,.8,.6,.5],g:[0,0,0],h:'un'},
+  {ko:'불량 원인 분석',en:'Defect root cause',L:'line',dx:66,dy:12,c:[.5,.6,.6,.5,.5],g:[0,0,0],h:'ok'},
+  {ko:'센서 결선',en:'Sensor wiring',L:'eq',dx:-18,dy:28,c:[.6,.7,.6,.4,.6],g:[1,0,0],h:'ab'},
+  {ko:'안전 정지 최종 승인',en:'Safety-stop sign-off',L:'plant',dx:-46,dy:-16,c:[.5,.5,.6,.5,.4],g:[0,0,1],h:'ab'}
+];
+TASKS.forEach(t=>{t.S=t.c.reduce((a,b)=>a+b,0)/5;t.v=t.g.some(Boolean)?'hu':t.S>=.75?'ai':t.S>=.5?'co':'hu'});
+const VC={ai:'#7fa3c7',co:'#c9a96e',hu:'#b77a6f'};
+const VL={ai:['AI','AI'],co:['협업','Together'],hu:['사람','Person']};
+
+const conns=document.getElementById('conns'),table=document.getElementById('table'),bins=document.getElementById('bins'),fly=document.getElementById('fly');
+const RX=500,RW=440,RY0=66,RH=46,RG=58;
+[['작업 (예시)','Task (example)',RX+14],['MAIA · 적용성 점수','MAIA · applicability',RX+190],['관문','Gates',RX+330],['HARI','HARI',RX+380]].forEach(([ko,en,x])=>{const t=el('text',{x,y:RY0-16,class:'hdr'},table);t.dataset.ko=ko;t.dataset.en=en});
+const beamM=el('rect',{x:RX+180,y:RY0-12,width:144,height:1.5,fill:'#b9a37a',class:'beam'},table);
+const beamH=el('rect',{x:RX+372,y:RY0-12,width:66,height:1.5,fill:'#8fae9a',class:'beam'},table);
+TASKS.forEach((t,i)=>{
+  const P=plates[t.L];t.px=CX+t.dx;t.py=P.cy+t.dy;
+  const d=el('g',{class:'dot'},stack);
+  t.halo=el('circle',{cx:t.px,cy:t.py,r:7,fill:'none',stroke:'#fff','stroke-opacity':.7,class:'halo'},d);
+  t.core=el('circle',{cx:t.px,cy:t.py,r:4,fill:'#ece8e1'},d);
+  t.mark=el('text',{x:t.px,y:t.py-10,'text-anchor':'middle','font-size':10,'font-weight':600,'letter-spacing':1,fill:'#ece8e1',opacity:0},d);
+  t.dot=d;
+  const y=RY0+i*RG;t.ry=y;
+  const p=el('path',{d:`M${t.px} ${t.py} C ${t.px+160} ${t.py}, ${RX-110} ${y+RH/2}, ${RX} ${y+RH/2}`,class:'conn',stroke:P.c},conns);
+  const len=p.getTotalLength();p.style.strokeDasharray=len;p.style.strokeDashoffset=len;t.conn=p;t.len=len;
+  const r=el('g',{class:'row'},table);t.row=r;
+  el('rect',{x:RX,y,width:RW,height:RH,rx:3,class:'rbg'},r);
+  el('rect',{x:RX,y,width:3,height:RH,fill:VC[t.v],class:'vstripe'},r);
+  const lb=el('text',{x:RX+16,y:y+28,class:'rlabel'},r);lb.dataset.ko=t.ko;lb.dataset.en=t.en;
+  t.c.forEach((v,j)=>{el('rect',{x:RX+190+j*15,y:y+10,width:11,height:26,rx:2,fill:'rgba(236,232,225,.07)'},r);el('rect',{x:RX+190+j*15,y:y+10+26*(1-v),width:11,height:26*v,rx:1,fill:'#b9a37a',class:'bar',style:`transition-delay:${j*70}ms`},r)});
+  t.snum=el('text',{x:RX+272,y:y+29,class:'snum'},r);t.snum.textContent='0.00';
+  t.gates=[0,1,2].map(k=>el('circle',{cx:RX+334+k*16,cy:y+23,r:5.5,class:'gate'},r));
+  const hc=t.h==='ok'?'#8fae9a':t.h==='ab'?'#b77a6f':'#8d929b';
+  const hb=el('g',{class:'hb'},r);
+  el('rect',{x:RX+378,y:y+12,width:56,height:22,rx:2,fill:'none',stroke:hc,'stroke-opacity':.7},hb);
+  const ht=el('text',{x:RX+406,y:y+27,'text-anchor':'middle','font-size':11,'font-weight':500,fill:hc},hb);
+  ht.dataset.ko=t.h==='ok'?'적격':t.h==='ab'?'기권':'미정';ht.dataset.en=t.h==='ok'?'eligible':t.h==='ab'?'abstain':'undecided';
+});
+// bins, stacked on the right
+const BX=984,BW=184,BH=96,BG=14,BY0=RY0;const binInfo={};
+['ai','co','hu'].forEach((k,i)=>{
+  const y=BY0+i*(BH+BG),g=el('g',{},bins);
+  el('rect',{x:BX,y,width:BW,height:BH,rx:3,class:'bin',stroke:VC[k],'stroke-opacity':.5},g);
+  const t=el('text',{x:BX+18,y:y+30,class:'binlabel',fill:VC[k]},g);t.dataset.ko=VL[k][0];t.dataset.en=VL[k][1];
+  const sub=el('text',{x:BX+18,y:y+52,'font-size':11,fill:'#8b98ad'},g);
+  sub.dataset.ko=k==='ai'?'사람이 최종 승인':k==='co'?'AI 초안 · 사람 결정':'관문·기권 → 사람';
+  sub.dataset.en=k==='ai'?'person accepts result':k==='co'?'AI drafts, person decides':'gate or abstain → person';
+  const n=el('text',{x:BX+BW-18,y:y+64,'text-anchor':'end',class:'bincount',fill:VC[k]},g);n.textContent='0';
+  binInfo[k]={x:BX+BW/2,y:y+BH/2,n,count:0};
+});
+const lg=el('text',{x:RX,y:RY0+6*RG+14,'font-size':11.5,fill:'#8b98ad'},bins);
+lg.dataset.ko='점수 S ≥ 0.75 → AI · 0.50~0.75 → 협업 · 관문이 걸리면 점수와 무관하게 사람';
+lg.dataset.en='S ≥ 0.75 → AI · 0.50–0.75 → together · any gate → person, whatever the score';
+const demo=el('text',{x:RX,y:RY0+6*RG+34,class:'demo'},bins);
+demo.dataset.ko='예시 작업과 예시 점수 · 실측·성능 주장 아님 · MAIA v1.1 운영판 식';
+demo.dataset.en='Illustrative tasks and scores · not measurements · MAIA v1.1 operational rule';
+
+/* ---------- timeline (24 s loop) ---------- */
+let timers=[];
+const at=(ms,fn)=>timers.push(setTimeout(fn,ms));
+function reset(){
+  timers.forEach(clearTimeout);timers=[];
+  document.querySelectorAll('.plate,.dot,.row,.beam,#cap').forEach(e=>e.classList.remove('on','score','hari','verdict','done'));
+  TASKS.forEach(t=>{t.conn.style.transition='none';t.conn.style.strokeDashoffset=t.len;t.conn.getBoundingClientRect();t.conn.style.transition='';t.snum.textContent='0.00';t.gates.forEach(g=>g.setAttribute('class','gate'));t.core.setAttribute('fill','#fff');t.halo.setAttribute('stroke','#fff');t.mark.setAttribute('opacity',0);t.conn.style.opacity=.75;t.conn.setAttribute('stroke',plates[t.L].c)});
+  for(const k in binInfo){binInfo[k].count=0;binInfo[k].n.textContent='0'}
+  fly.innerHTML='';
+}
+function run(){
+  reset();
+  document.querySelectorAll('.plate').forEach((p,i)=>at(300+i*550,()=>p.classList.add('on')));
+  TASKS.forEach((t,i)=>at(2800+i*140,()=>t.dot.classList.add('on')));
+  at(4000,()=>{beamM.classList.add('on');beamH.classList.add('on');sweep()});
+  TASKS.forEach((t,i)=>{
+    const t0=4100+i*900;
+    at(t0,()=>{t.conn.style.strokeDashoffset=0});
+    at(t0+350,()=>t.row.classList.add('on'));
+    at(t0+550,()=>{t.row.classList.add('score');L.count(t.snum,t.S,700,v=>v.toFixed(2))});
+    at(t0+1150,()=>t.gates.forEach((g,k)=>g.setAttribute('class','gate '+(t.g[k]?'fire':'ok'))));
+    at(t0+1300,()=>t.row.classList.add('hari'));
+  });
+  at(10200,()=>{beamM.classList.remove('on');beamH.classList.remove('on')});
+  TASKS.forEach((t,i)=>at(10500+i*180,()=>t.row.classList.add('verdict')));
+  TASKS.forEach((t,i)=>at(12200+i*520,()=>flyTo(t)));
+  at(16200,()=>document.getElementById('cap').classList.add('on'));
+  at(22500,()=>{document.querySelectorAll('.plate,.dot,.row,#cap').forEach(e=>e.classList.remove('on'));TASKS.forEach(t=>t.conn.style.opacity=0)});
+  at(23600,run);
+}
+function sweep(){
+  const t0=performance.now(),dur=6000,y0=RY0-4,y1=RY0+5*RG+RH+4;
+  (function f(n){const k=Math.min(1,(n-t0)/dur);const y=y0+(y1-y0)*k;beamM.setAttribute('y',y);beamH.setAttribute('y',y);if(k<1)requestAnimationFrame(f)})(t0);
+}
+function flyTo(t){
+  const b=binInfo[t.v],sx=RX+RW-14,sy=t.ry+RH/2;
+  const c=el('circle',{cx:0,cy:0,r:4.5,fill:VC[t.v]},fly);
+  c.animate([{transform:`translate(${sx}px,${sy}px)`},{transform:`translate(${(sx+b.x)/2}px,${(sy+b.y)/2-30}px)`,offset:.5},{transform:`translate(${b.x}px,${b.y}px)`}],{duration:900,easing:'cubic-bezier(.4,0,.2,1)',fill:'forwards'});
+  setTimeout(()=>{c.remove();b.count++;b.n.textContent=b.count;t.row.classList.add('done');
+    t.core.setAttribute('fill',VC[t.v]);t.halo.setAttribute('stroke',VC[t.v]);t.mark.textContent=t.v==='ai'?'AI':L.T(t.v==='co'?'협업':'사람',t.v==='co'?'AI+P':'P');t.mark.setAttribute('fill',VC[t.v]);t.mark.setAttribute('opacity',1);
+    t.conn.setAttribute('stroke',VC[t.v]);t.conn.style.opacity=.3},910);
+}
+run();
+})();
+</script>
+</body>
+</html>
