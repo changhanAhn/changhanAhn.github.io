@@ -2,93 +2,13 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Grants — Ahn Research Group</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="assets/site.css?v=20261022b">
-<style>
-.head{position:absolute;left:56px;top:68px;width:1168px}
-.head .ck{color:var(--brass);font-size:12px}
-.run{position:absolute;left:56px;top:184px;width:560px;height:474px;display:flex;flex-direction:column}
-.dem{position:absolute;left:632px;top:184px;width:592px;height:474px;display:flex;flex-direction:column}
-.rows{display:flex;flex-direction:column;margin-top:8px;flex:1;justify-content:space-between}
-.gr{display:grid;grid-template-columns:62px 1fr auto;gap:12px;align-items:center;padding:5px 0;border-top:1px solid rgba(236,232,225,.07)}
-.gr:first-child{border-top:0}
-.gr .d{font-family:var(--mono);font-size:11.5px;color:#9fb8d0}
-.gr b{display:block;font-size:12.5px;font-weight:600;color:#e2e8f0;line-height:1.3}
-.gr small{display:block;font-size:11px;color:var(--mute);line-height:1.35;margin-top:1px}
-.gr .pill{font-size:11px}
-.dem .gr{grid-template-columns:62px 1fr;padding:2px 0}
-.dem .gr b{font-size:12px;line-height:1.2}
-.dem .gr small{margin-top:0;line-height:1.25}
-.note{margin-top:6px;padding-top:6px;border-top:1px solid var(--line);font-size:11.5px;color:var(--mute);line-height:1.5}
-.s-sub{color:#9fb8d0;border-color:rgba(159,184,208,.5)}
-.s-rev{color:#c9a96e;border-color:rgba(201,169,110,.5)}
-.s-pre{color:#8fae9a;border-color:rgba(143,174,154,.5)}
-</style>
+<title>AI for Energy &amp; Manufacturing Lab</title>
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://changhanahn.github.io/maia-lab/grants.html">
+<meta http-equiv="refresh" content="0; url=https://changhanahn.github.io/maia-lab/grants.html">
 </head>
-<body data-page="record">
-<div class="stage" id="stage"><div class="page" id="page">
-
-  <div class="head">
-    <div class="ck" data-ko="실적 · 정부과제" data-en="TRACK RECORD · GRANTS"></div>
-    <div class="h2" data-ko="<em>정부과제</em> 진행 현황" data-en="<em>Grant</em> activity"></div>
-    <p class="lead" data-ko="신청·평가가 진행 중인 과제와 제출한 기술수요조사입니다. 일정이 바뀌면 이 표를 고칩니다." data-en="Applications under way and technology demand surveys submitted. The tables are updated as each stage changes."></p>
-  </div>
-
-  <div class="card run rise">
-    <div class="ck" id="runHead"></div>
-    <div class="rows" id="runRows"></div>
-  </div>
-
-  <div class="card dem rise" style="animation-delay:.08s">
-    <div class="ck" id="demHead"></div>
-    <div class="rows" id="demRows"></div>
-    <div class="note" data-ko="기술수요조사는 다음 연도 사업 기획용 기술 제안으로, 연구비 지원 과제가 아닙니다." data-en="A demand survey proposes a topic for next year's programmes; it is not a funded award."></div>
-  </div>
-
-  <div class="foot"><a href="record.html" data-ko="← 실적" data-en="← Track record"></a><span>Esc</span><span class="r" data-ko="2026년 10월 22일 기준" data-en="As of 22 October 2026"></span></div>
-
-</div></div>
-<script>
-// [when, ko title, en title, ko detail, en detail, status]
-const RUN = [
-  ['10/15', 'KETEP 2027 에너지인력양성 연구개발과제 기획단', 'KETEP 2027 energy-workforce R&amp;D planning group', '기획위원 지원서 제출', 'planning-member application sent', 'sub'],
-  ['10/19', 'IITP 방송통신정책연구 · AI 자율 네트워크 제도', 'IITP policy research · autonomous AI networks', '발표평가 완료', 'presentation review done', 'rev'],
-  ['10/26', 'NRF 정책연구 · 초광역 첨단분야 공유대학 체계 고도화', 'NRF policy study · mega-regional shared universities', '연구계획서 작성', 'research plan drafting', 'pre'],
-  ['10/30', '한전 7차 사외공모', 'KEPCO 7th open call', '공동연구기관 섭외·제안서 작성', 'partners · proposal drafting', 'pre'],
-  ['11/04', 'KEIT 2027 국가표준기술력향상 기술수요조사', 'KEIT 2027 national standards demand survey', 'AI 권고·설비 제어 권한 분리 인터록 적합성 시험', 'conformance test for separating AI advice from control authority', 'pre'],
-  ['11/12', '산업부 지역거점 AX 실증(공정·응용 솔루션)', 'MOTIE regional AX demonstration (process solutions)', '공동기관 구성·계획서 작성', 'consortium · plan drafting', 'pre'],
-  ['11/23', 'KETEP 2027 에너지기술개발 기술수요조사', 'KETEP 2027 energy technology demand survey', '주제 공시 확인 후 작성', 'drafting after topic notice', 'pre'],
-  ['2027', 'KPX 연구개발과제 · 계통해석모델 검증', 'KPX R&amp;D · grid model validation', '입찰 자격 등록·제안서 준비', 'bid registration · proposal drafting', 'pre'],
-  ['2027', 'NRF 개인기초연구', 'NRF basic research', '연구계획 준비', 'research plan drafting', 'pre'],
-];
-const DEM = [
-  ['08/23', 'KEIT 제조AX', 'KEIT manufacturing AX', '이기종 설비 자율제조 명령의 실행 허용성 판정·가상검증 공통 런타임', 'Admissibility check and virtual validation of autonomous commands across mixed equipment'],
-  ['08/23', 'KEIT 자동차', 'KEIT automotive', '전기차 배터리 셀 선택형 양면 비전검사·생산이력 결속 품질판정', 'Selective two-face vision inspection of EV battery cells linked to production history'],
-  ['08/23', 'KETEP 2028 에너지기술개발', 'KETEP 2028 energy technology', 'PV-ESS 수용가 전기설비 재현형 안전진단 디지털트윈', 'Reproducible safety-diagnosis digital twin for PV-ESS customer installations'],
-  ['08/25', 'KEIT 스마트전자', 'KEIT smart electronics', '이차전지 품질검사 AI 판정의 실행 증거 결속·독립 재검증', 'Binding run evidence to AI quality decisions on batteries for independent re-checking'],
-  ['08/27', '행정안전부 재난안전', 'MOIS disaster safety', '제어·계측 기록 동결과 재현 모의 기반 위험설비 사고원인 판정', 'Accident-cause determination for hazardous plants from frozen control records and replay'],
-  ['08/28', 'KEIT 소재부품', 'KEIT materials and parts', '판정 근거 결속·재검증 기능을 내장한 이차전지 셀 검사장비', 'Battery-cell inspection equipment with built-in decision evidence and re-checking'],
-  ['08/28', '소방청 소방안전', 'NFA fire safety', '배터리 제조·저장시설 공정 제어 데이터와 소방 감지신호 연계 화재 선행경보', 'Early fire warning linking process control data and fire sensors in battery plants'],
-  ['08/28', 'IPET 농림식품', 'IPET agri-food', '농산물 선별라인 AI 판정의 근거 결속·판정 이력 재현 검증', 'Evidence binding and replay checks for AI decisions on produce sorting lines'],
-  ['10/13', 'KEIT 국가 제조데이터 라이브러리', 'KEIT national manufacturing-data library', '이차전지 코인셀 조립·외관검사 공정 동기화 데이터셋', 'Synchronised dataset of coin-cell assembly and visual inspection'],
-  ['10/15', 'KEIT 제품안전관리기술', 'KEIT product safety', '소형전지 탑재 제품의 안전검사 누락·판정 충돌 방지와 출하 차단 검증', 'Preventing missed safety checks and blocking shipment for small-battery products'],
-  ['10/15', 'KETEP 전력정보화·정책지원', 'KETEP power informatics and policy', '직류 수용가의 시설·검사·인증 제도 공백 분석과 제도개선 로드맵', 'Gaps in facility, inspection and certification rules for DC customers'],
-];
-const ST = {sub:['제출','Submitted'], rev:['결과 대기','Awaiting'], pre:['준비','Preparing']};
-document.getElementById('runHead').outerHTML = '<div class="ck" data-ko="진행 중 ' + RUN.length + '건" data-en="IN PROGRESS · ' + RUN.length + '" data-ja="進行中 ' + RUN.length + '件" data-zh="进行中 ' + RUN.length + '项"></div>';
-document.getElementById('demHead').outerHTML = '<div class="ck" data-ko="기술수요조사 제출 ' + DEM.length + '건 · 2026" data-en="DEMAND SURVEYS SUBMITTED · ' + DEM.length + ' · 2026" data-ja="技術需要調査 提出 ' + DEM.length + '件 · 2026" data-zh="技术需求调查 已提交 ' + DEM.length + '项 · 2026"></div>';
-document.getElementById('runRows').innerHTML = RUN.map(r =>
-  '<div class="gr"><span class="d">' + r[0] + '</span><div><b data-ko="' + r[1] + '" data-en="' + r[2] + '"></b><small data-ko="' + r[3] + '" data-en="' + r[4] + '"></small></div>' +
-  '<span class="pill s-' + r[5] + '" data-ko="' + ST[r[5]][0] + '" data-en="' + ST[r[5]][1] + '"></span></div>').join('');
-document.getElementById('demRows').innerHTML = DEM.map(r =>
-  '<div class="gr"><span class="d">' + r[0] + '</span><div><b data-ko="' + r[1] + '" data-en="' + r[2] + '"></b><small data-ko="' + r[3] + '" data-en="' + r[4] + '"></small></div></div>').join('');
-</script>
-<script src="assets/i18n.js?v=20261022b"></script>
-<script src="assets/site.js?v=20261022b"></script>
-<script>
-document.addEventListener('keydown', e => { if (e.key === 'Escape') { e.stopImmediatePropagation(); location.href = 'record.html'; } }, true);
-</script>
+<body>
+<p>This site moved to <a href="https://changhanahn.github.io/maia-lab/grants.html">https://changhanahn.github.io/maia-lab/grants.html</a>.</p>
+<script>location.replace("https://changhanahn.github.io/maia-lab/grants.html"+location.search+location.hash)</script>
 </body>
 </html>

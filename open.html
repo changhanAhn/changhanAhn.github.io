@@ -2,119 +2,13 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Development — Ahn Research Group</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="assets/site.css?v=20261022b">
-<script src="pulse.js"></script>
-<style>
-.head{position:absolute;left:56px;top:68px;width:1168px}
-.head .ck{color:var(--brass);font-size:12px}
-.upd{position:absolute;right:0;top:0;font-size:12px;color:var(--mute);font-weight:600}
-.kpis{position:absolute;left:56px;top:178px;width:1168px;display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-.kpi{height:128px}
-.kpi small{display:block;font-size:12px;color:var(--mute);font-weight:700;letter-spacing:.3px}
-.kpi b{display:block;font-family:var(--mono);font-size:36px;font-weight:500;letter-spacing:-.8px;font-variant-numeric:tabular-nums;margin-top:6px;line-height:1.05}
-.kpi i{display:block;font-style:normal;font-size:12px;font-weight:700;margin-top:8px;white-space:nowrap}
-.kpi i.up{color:#8fae9a}.kpi i.n{color:#94a3b8}
-.kpi.tok b{color:#ece8e1}
-.charts{position:absolute;left:56px;top:320px;width:1168px;height:280px;display:grid;grid-template-columns:1.25fr 1fr .95fr;gap:14px}
-.chart{display:flex;flex-direction:column}
-.chart svg{flex:1;width:100%;margin-top:10px}
-.leg{display:flex;gap:14px;font-size:11.5px;color:var(--mute);margin-top:6px}
-.leg i{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:5px;vertical-align:-1px}
-.feed{display:flex;flex-direction:column;gap:8px;margin-top:10px}
-.fi{display:grid;grid-template-columns:10px 1fr auto;gap:10px;align-items:start;opacity:0;transform:translateY(6px);transition:all .45s}
-.fi.on{opacity:1;transform:none}
-.fi i{width:6px;height:6px;border-radius:50%;background:#7fa3c7;margin-top:6px}
-.fi:first-child i{background:#8fae9a;animation:ping 2.4s infinite}
-.fi b{display:block;font-size:12.5px;font-weight:600;color:#ece8e1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:215px}
-.fi span{display:block;font-size:11.5px;color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:215px}
-.fi em{font-style:normal;font-size:11px;color:var(--mute);white-space:nowrap}
-.note{position:absolute;left:56px;top:612px;width:1168px;font-size:11.5px;color:var(--mute);line-height:1.6}
-</style>
+<title>AI for Energy &amp; Manufacturing Lab</title>
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://changhanahn.github.io/maia-lab/open.html">
+<meta http-equiv="refresh" content="0; url=https://changhanahn.github.io/maia-lab/open.html">
 </head>
-<body data-page="open">
-<div class="stage" id="stage"><div class="page" id="page">
-
-  <div class="head">
-    <div class="ck"><span class="ld"></span><span data-ko="개발 공개 · LIVE" data-en="OPEN LAB · LIVE"></span></div>
-    <div class="h2" data-ko="<em>개발</em> 현황" data-en="<em>Development</em> activity"></div>
-    <p class="lead" data-ko="커밋 수, AI 토큰 사용량, 3AI 교차 질의 건수를 연구실 개발 기록에서 집계합니다. 출처와 집계 범위는 아래에 적습니다." data-en="Commit counts, AI token use and three-AI cross-check counts are aggregated from the lab's development records. Sources and scope are listed below."></p>
-    <div class="upd" id="upd"></div>
-  </div>
-
-  <div class="kpis">
-    <div class="card kpi rise"><small data-ko="커밋 · 개발 기록" data-en="Commits"></small><b id="kC">0</b><i class="up" id="kCd"></i></div>
-    <div class="card kpi tok rise" style="animation-delay:.08s"><small data-ko="AI 토큰 · 최근 30일" data-en="AI tokens · last 30 days"></small><b id="kT">0</b><i class="up" id="kTd"></i></div>
-    <div class="card kpi rise" style="animation-delay:.16s"><small data-ko="3AI 교차 질의" data-en="Three-AI cross-checks"></small><b id="kA">0</b><i class="n" id="kAd"></i></div>
-    <a href="data.html" class="card kpi rise" style="animation-delay:.24s;display:block"><small data-ko="공개 데이터·코드" data-en="Open data & code"></small><b id="kD">0</b><i class="n" data-ko="Zenodo DOI · 공개 자료 보기 →" data-en="Zenodo DOI · see data →"></i></a>
-  </div>
-
-  <div class="charts">
-    <div class="card chart rise" style="animation-delay:.3s">
-      <div class="ck" data-ko="AI 토큰 · 최근 14일" data-en="AI TOKENS · LAST 14 DAYS"></div>
-      <div class="leg"><span><i style="background:#b9a37a"></i>Claude Code</span><span><i style="background:#7fa3c7"></i>Codex</span></div>
-      <svg id="cTok" viewBox="0 0 460 190" preserveAspectRatio="none"></svg>
-    </div>
-    <div class="card chart rise" style="animation-delay:.38s">
-      <div class="ck" data-ko="커밋 · 최근 14일" data-en="COMMITS · LAST 14 DAYS"></div>
-      <div class="leg"><span id="cWeek"></span></div>
-      <svg id="cCom" viewBox="0 0 370 190" preserveAspectRatio="none"></svg>
-    </div>
-    <div class="card chart rise" style="animation-delay:.46s">
-      <div class="ck" data-ko="방금 일어난 일" data-en="JUST NOW"></div>
-      <div class="feed" id="feed"></div>
-    </div>
-  </div>
-
-  <div class="note" data-ko="출처: git 기록 · Claude Code·Codex 세션 기록(집계값만, 대화 원문 비공개) · 3AI 호출 원장. Gemini(agy) 토큰은 아직 집계하지 않음. 토큰은 캐시 읽기 포함. 토큰과 커밋 수는 투입량이며 연구 성과의 크기가 아닙니다." data-en="Sources: git history · Claude Code and Codex session logs (aggregates only, no conversation text) · three-AI call ledger. Gemini (agy) tokens not yet counted. Tokens include cache reads. Tokens and commits measure effort, not the size of results."></div>
-
-  <div class="foot"><a href="index.html" data-ko="← 처음으로" data-en="← Home"></a><span>Esc</span><span class="r" data-ko="연구실 개발 기록에서 직접 집계" data-en="Counted directly from the lab's records"></span></div>
-
-</div></div>
-<script src="assets/i18n.js?v=20261022b"></script>
-<script src="assets/site.js?v=20261022b"></script>
-<script>
-(function(){
-const L=window.LAB,NS='http://www.w3.org/2000/svg';
-let P=window.PULSE,shown={c:0,t:0,a:0,d:0};
-function el(tag,attrs,parent){const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e}
-function countFrom(node,from,to,ms,fmt){const t0=performance.now();(function f(n){const k=Math.min(1,(n-t0)/ms);const e=1-Math.pow(1-k,3);node.textContent=fmt(from+(to-from)*e);if(k<1)requestAnimationFrame(f)})(t0)}
-function dayLabel(iso){const d=new Date(iso+'T00:00:00');return (d.getMonth()+1)+'/'+d.getDate()}
-function bars(svg,series,colors,W,Hh){
-  svg.innerHTML='';const n=series[0].length,max=Math.max(1,...series[0].map((_,i)=>series.reduce((a,s)=>a+s[i],0)));
-  const bw=W/n,base=Hh-18;
-  for(let g=1;g<=3;g++)el('line',{x1:0,x2:W,y1:base-(base-6)*g/3,y2:base-(base-6)*g/3,stroke:'rgba(148,163,184,.12)'},svg);
-  for(let i=0;i<n;i++){let y=base;series.forEach((s,k)=>{const h=(base-6)*s[i]/max;const r=el('rect',{x:i*bw+bw*.18,y:y-h,width:bw*.64,height:Math.max(0,h),rx:2,fill:colors[k],opacity:i===n-1?1:.75},svg);
-      r.style.transformBox='fill-box';r.style.transformOrigin='50% 100%';
-      r.animate([{transform:'scaleY(0)'},{transform:'scaleY(1)'}],{duration:700,delay:300+i*45,easing:'cubic-bezier(.2,.8,.2,1)',fill:'backwards'});y-=h});
-    if(i%2===1||i===n-1){const t=el('text',{x:i*bw+bw/2,y:Hh-3,'text-anchor':'middle','font-size':10,fill:i===n-1?'#ece8e1':'#6b7078'},svg);t.textContent=i===n-1?L.T('오늘','today'):dayLabel(P.tokens.days14[i])}}
-}
-function render(first){
-  if(!P)return;
-  const c=P.commits,t=P.tokens,a=P.agents;
-  countFrom(document.getElementById('kC'),shown.c,c.total,first?1600:900,v=>L.num(v));
-  countFrom(document.getElementById('kT'),shown.t,t.d30,first?1900:900,L.big);
-  countFrom(document.getElementById('kA'),shown.a,a.total,first?1400:900,v=>L.num(v));
-  countFrom(document.getElementById('kD'),shown.d,P.datasets,first?900:600,v=>Math.round(v));
-  shown={c:c.total,t:t.d30,a:a.total,d:P.datasets};
-  document.getElementById('kCd').textContent=L.T('오늘 +'+c.day+' · 7일 +'+c.week,'+'+c.day+' today · +'+c.week+' this week','今日 +'+c.day+' · 7日 +'+c.week,'今天 +'+c.day+' · 7天 +'+c.week);
-  document.getElementById('kTd').textContent=L.T('오늘 +'+L.big(t.d1),'+'+L.big(t.d1)+' today','今日 +'+L.big(t.d1),'今天 +'+L.big(t.d1));
-  document.getElementById('kAd').textContent='Codex '+a.codex+' · Claude '+a.claude+' · Gemini '+a.gemini;
-  bars(document.getElementById('cTok'),[t.claude14,t.codex14],['#b9a37a','#7fa3c7'],460,190);
-  bars(document.getElementById('cCom'),[c.spark14],['#8fae9a'],370,190);
-  document.getElementById('cWeek').textContent=L.T('7일 '+c.week+'회 · 오늘 '+c.day+'회',c.week+' this week · '+c.day+' today','7日 '+c.week+'件 · 今日 '+c.day+'件','7天 '+c.week+'次 · 今天 '+c.day+'次');
-  const f=document.getElementById('feed');f.innerHTML='';
-  c.feed.slice(0,5).forEach((x,i)=>{const d=document.createElement('div');d.className='fi';d.innerHTML='<i></i><div><b>'+L.T(x.ko,x.en)+'</b>'+(x.text&&(L.lang()==='ko'||!/[가-힣]/.test(x.text))?'<span>'+x.text.replace(/</g,'&lt;')+'</span>':'')+'</div><em data-t="'+x.t+'">'+L.ago(x.t)+'</em>';f.appendChild(d);setTimeout(()=>d.classList.add('on'),400+i*140)});
-  tick();
-}
-function tick(){if(!P)return;document.getElementById('upd').textContent=L.T('집계 ','counted ')+L.ago(P.generated_at);document.querySelectorAll('#feed em').forEach(e=>e.textContent=L.ago(e.dataset.t))}
-setInterval(tick,15000);
-// re-read pulse.js every 5 minutes; when the scheduled job rewrites it, numbers climb to the new values
-setInterval(()=>{const s=document.createElement('script');s.src='pulse.js?ts='+Date.now();s.onload=()=>{if(window.PULSE&&window.PULSE.generated_at!==P.generated_at){P=window.PULSE;render(false)}s.remove()};document.head.appendChild(s)},300000);
-L.onLang.push(()=>render(true));
-})();
-</script>
+<body>
+<p>This site moved to <a href="https://changhanahn.github.io/maia-lab/open.html">https://changhanahn.github.io/maia-lab/open.html</a>.</p>
+<script>location.replace("https://changhanahn.github.io/maia-lab/open.html"+location.search+location.hash)</script>
 </body>
 </html>
